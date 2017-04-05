@@ -125,19 +125,19 @@ export function deleteItem (id, router) {
 		const state = getState();
 		const list = state.lists.currentList;
 		list.deleteItem(id, (err) => {
-			// If a router is passed, redirect to the current list path,
-			// otherwise stay where we are
-			if (router) {
-				let redirectUrl = `${Keystone.adminPath}/${list.path}`;
-				if (state.lists.page.index && state.lists.page.index > 1) {
-					redirectUrl = `${redirectUrl}?page=${state.lists.page.index}`;
-				}
-				router.push(redirectUrl);
-			}
 			// TODO Proper error handling
 			if (err) {
-				alert(err.errors);
+				alert(err);
 			} else {
+				// If a router is passed, redirect to the current list path,
+				// otherwise stay where we are
+				if (router) {
+					let redirectUrl = `${Keystone.adminPath}/${list.path}`;
+					if (state.lists.page.index && state.lists.page.index > 1) {
+						redirectUrl = `${redirectUrl}?page=${state.lists.page.index}`;
+					}
+					router.push(redirectUrl);
+				}
 				dispatch(loadItems());
 			}
 		});
