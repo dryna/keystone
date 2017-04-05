@@ -127,7 +127,12 @@ export function deleteItem (id, router) {
 		list.deleteItem(id, (err) => {
 			// TODO Proper error handling
 			if (err) {
-				alert(err);
+				if(err.error !== undefined) {
+					alert(err.error);
+				}
+				else{
+					alert(err);
+				}
 			} else {
 				// If a router is passed, redirect to the current list path,
 				// otherwise stay where we are
